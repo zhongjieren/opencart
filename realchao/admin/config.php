@@ -24,7 +24,7 @@ define('DIR_CATALOG', 'C:/project/opencart/opencartv2/realchao/catalog/');
 define('DB_DRIVER', 'mysqli');
 define('DB_HOSTNAME', 'localhost');
 define('DB_USERNAME', 'root');
-define('DB_PASSWORD', 'arenzhj');
+define('DB_PASSWORD', 'root');
 define('DB_DATABASE', 'realchao');
 define('DB_PORT', '3306');
 define('DB_PREFIX', 'mcc_');

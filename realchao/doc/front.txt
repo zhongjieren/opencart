@@ -1,0 +1,136 @@
+Catalog
+  |controller
+	|account 会员功能
+		|—— account.php 会员功能主頁
+		|—— address.php 会员功能-地址管理
+		|—— create.php 创建账号
+		|—— download.php 会员功能-商品下载
+		|—— edit.php 会员功能-编辑个人资料
+		|—— forgotten.php 取回密码
+		|—— history.php 会员功能-订单记录列表
+		|—— invoice.php 折扣券接收处理程序
+		|—— login.php 登入
+		|—— logout.php 登出完成页
+		|—— newsletter.php 会员功能-电子报订阅取消
+		|—— password.php 会员功能-密码变更
+		|—— success.php 创建账号成功訊息
+Catalog
+  |controller
+	|checkout 结账功能
+		|—— address.php (shipping_address.php) 结账功能-地址处理(配送,账单..地址)
+		|—— cart.php 浏览购物清单(购物车)
+		|—— confirm.php 结账功能-最后确认
+		|—— guest_step_1.php (guest_shipping.php)免登入结账第一步
+		|—— guest_step_2.php (guest_shipping.php)免登入结账第二步
+		|—— guest_step_3.php (guest_shipping.php)免登入结账第三步
+		|—— payment.php (payment_method.php)结账功能-选择付款方式
+		|—— shipping.php (shipping_method.php)结账功能-选择配送方式
+		|—— success.php 完成结账成功消息
+Catalog
+  |controller
+	|common 主要版面
+		|—— column_left.php 左栏模块载入
+		|—— column_right.php 右栏模块载入
+		|—— footer.php 页脚
+		|—— header.php 页头
+		|—— home.php 首页
+		|—— maintenance.php 维护中显示頁
+		|—— seo_url.php 网址最佳化处理程序之一(缩短网址)
+Catalog
+  |controller
+	|error 404错误
+	|—— not_found.php 无此页
+Catalog
+  |controller
+	|feed 网站地图和订阅
+		|—— google_base.php 网站订阅(feed)
+		|—— google_sitemap.php 网站地图
+Catalog
+  |controller
+	|information 网站资讯
+		|—— contact.php 发送信件给店家
+		|—— information.php 商店文章
+		|—— sitemap.php 网站导览
+Catalog
+  |controller
+	| module 功能模块
+		|—— bestseller.php 畅销商品
+		|—— cart.php 购物清单(侧栏)
+		|—— category.php 目录(侧栏)
+		|—— featured.php 推荐商品
+		|—— google_talk.php google即時通(侧栏)
+		|—— information.php 商店文章(侧栏)
+		|—— latest.php 最新商品
+		|—— manufacturer.php 品牌选单
+		|—— special.php 特价商品
+Catalog
+  |controller
+	| product 商品功能
+		|—— category.php 同目录商品列表
+		|—— manufacturer.php 同品牌商品列表
+		|—— product.php 商品详细内容页
+		|—— search.php 搜索功能
+		|—— special.php 特价商品列表
+前台显示界面模板文件列表-catalog/view
+catalog/view/theme/your 
+	template/template/account 会员功能
+		account.tpl 会员功能首页
+		address.tpl 地址管理(更改,新增)
+		addresses.tpl 地址管理(列表,刪除)
+		create.tpl 创建账号
+		download.tpl 商品下载
+		edit.tpl 编辑个人资料
+		forgotten.tpl 取回密码
+		history.tpl 订单记录列表
+		invoice.tpl 折扣券接收处理程序
+		login.tpl 登入
+		newsletter.tpl 电子报订阅取消
+		password.tpl 密码变更
+catalog/view/theme/your 
+	template/template/checkout 结账功能
+		address.tpl 地址处理(配送,账单地址)
+		cart.tpl 浏览购物清单(购物车)
+		confirm.tpl 结账确认功能
+		guest_step_1.tpl 免登入结账第一步
+		guest_step_2.tpl 免登入结账第二步
+		payment.tpl 结账功能-选择付款方式
+catalog/view/theme/your 
+	template/template/common 主要版面
+		column_left.tpl 左栏模块载入
+		column_right.tpl 右栏模块载入
+		footer.tpl 页脚
+		header.tpl 页头
+		home.tpl 首页
+		maintenance.tpl 维护中显示页
+		success.tpl 成功讯息
+Catalog/view/theme/your 
+	template/template/information网站资讯
+		contact.tpl 发送信件给店家
+		information.tpl 商店文章
+		sitemap.tpl 网站地图
+catalog/view/theme/your 
+	template/template/mail 订单确认信
+		order_confirm.tpl 订单确认信
+catalog/view/theme/your 
+	template/template/module 功能模块
+		bestseller.tpl 畅销商品(侧栏)
+		bestseller_home.tpl 畅销商品(中间)
+		cart.tpl 购物清单(侧栏)
+		category.tpl 目录(侧栏)
+		featured.tpl 推荐商品(侧栏)
+		featured_home.tpl 推荐商品(中间)
+		google_talk.tpl google即時通(侧栏)
+		information.tpl 商店文章(侧栏)
+		latest.tpl 最新商品(侧栏)
+		latest_home.tpl 最新商品(中间)
+		manufacturer.tpl 品牌选单
+		special.tpl 特价商品(侧栏)
+		special_home.tpl 特价商品(中间)
+catalog/view/theme/your 
+	template/template/product 商品功能
+		category.tpl 同目录商品列表
+		manufacturer.tpl 同品牌商品列表
+		product.tpl 商品详细内容页
+		review.tpl 商品评论
+		search.tpl 搜索功能
+		special.tpl 特价商品列表
