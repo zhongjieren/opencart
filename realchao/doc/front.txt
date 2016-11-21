@@ -1,3 +1,6 @@
+表结构
+	http://www.vcphp.com/opencart/jiaocheng/4623.html
+	
 Catalog
   |controller
 	|account 会员功能
