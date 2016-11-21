@@ -845,3 +845,5 @@
 2016-11-09 17:24:58 - PHP Notice:  Undefined variable: error_zone in C:\phpStudy\WWW\realchao\catalog\view\theme\rgen-opencart\template\account\register.tpl on line 292
 2016-11-09 17:24:58 - PHP Notice:  Undefined variable: zone_id in C:\phpStudy\WWW\realchao\catalog\view\theme\rgen-opencart\template\account\register.tpl on line 691
 2016-11-18 22:16:33 - PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\project\opencart\opencartv2\realchao\system\library\mail.php on line 158
+2016-11-22 0:06:14 - PHP Notice:  Undefined variable: applyforseller in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\extension\module\account.tpl on line 9
+2016-11-22 0:06:14 - PHP Notice:  Undefined variable: text_applyforseller in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\extension\module\account.tpl on line 9

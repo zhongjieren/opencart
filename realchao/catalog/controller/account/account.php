@@ -75,6 +75,9 @@ class ControllerAccountAccount extends Controller {
 		
 		$data['wishlist'] = $this->url->link('account/wishlist');
 		$data['order'] = $this->url->link('account/order', '', true);
+		//add apply for seller Url
+		$data['applyforseller'] = $this->url->link('account/applyforseller', '', true);
+		
 		$data['download'] = $this->url->link('account/download', '', true);
 		
 		if ($this->config->get('reward_status')) {

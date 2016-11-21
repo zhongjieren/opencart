@@ -14,6 +14,9 @@ $_['text_password']    = '密码';
 $_['text_address']     = '地址簿';
 $_['text_wishlist']    = '收藏列表';
 $_['text_order']       = '历史订单';
+
+$_['text_applyforseller']         = '申请为卖家';
+
 $_['text_download']    = '下载文件';
 $_['text_reward']      = '奖励积分';
 $_['text_return']      = '商品退换';

@@ -15,6 +15,10 @@ class ControllerExtensionModuleAccount extends Controller {
 		$data['text_address'] = $this->language->get('text_address');
 		$data['text_wishlist'] = $this->language->get('text_wishlist');
 		$data['text_order'] = $this->language->get('text_order');
+		//add apply for seller
+		$data['text_applyforseller'] = $this->language->get('text_applyforseller');
+		
+		
 		$data['text_download'] = $this->language->get('text_download');
 		$data['text_reward'] = $this->language->get('text_reward');
 		$data['text_return'] = $this->language->get('text_return');
@@ -33,6 +37,8 @@ class ControllerExtensionModuleAccount extends Controller {
 		$data['address'] = $this->url->link('account/address', '', true);
 		$data['wishlist'] = $this->url->link('account/wishlist');
 		$data['order'] = $this->url->link('account/order', '', true);
+		//add apply for seller Url
+		$data['applyforseller'] = $this->url->link('account/applyforseller', '', true);
 		$data['download'] = $this->url->link('account/download', '', true);
 		$data['reward'] = $this->url->link('account/reward', '', true);
 		$data['return'] = $this->url->link('account/return', '', true);

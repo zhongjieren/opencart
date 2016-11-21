@@ -25,8 +25,8 @@ include $rgen_config->layout_top; ?>
 <div class="frm-wrp">
 	<h2 class="frm-hd"><?php echo $text_my_orders; ?></h2>
 	<ul class="ul-list-1">
-		<li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
-		<li><a href="<?php echo $order; ?>"><?php echo $text_applyforseller; ?></a></li>
+		<li><a href="<?php echo $order; ?>">11111<?php echo $text_order; ?></a></li>
+		<li><a href="<?php echo $applyforseller; ?>"><?php echo $text_applyforseller; ?></a></li>
 		
 		<li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
 		<?php if ($reward) { ?>
