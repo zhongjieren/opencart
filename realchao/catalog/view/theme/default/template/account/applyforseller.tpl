@@ -22,23 +22,22 @@
       <h2><?php echo $heading_title; ?></h2>
       
       <div class="table-responsive">
-      <form action="<?php echo $applyforsellerurl; ?>" enctype="multipart/form-data" method="post" name="uploadfile">
+      <form  id="uploadfile" action="<?php echo $applyforsellerurl; ?>" enctype="multipart/form-data" method="post" name="uploadfile">
       		<input type="hidden" name="apply_id" value="<?php echo $apply_id; ?>" />
+      		<input type="hidden" id="actionType" name="actionType" value="save" />
       		<table class="table table-bordered table-hover">
       			<tr>
       				<td><?php echo $column_idcardphoto_front; ?></td>
-      				<td><input type="file" name="idcardphoto_front[]" value="" multiple="multiple" /></td>
+      				<td><input type="file" name="idcardphoto_front[]" value=""  /></td>
       			</tr>
       			<tr>
       				<td><?php echo $column_idcardphoto_back; ?></td>
-      				<td><input type="file" name="idcardphoto_back[]" value="" multiple="multiple" /></td>
+      				<td><input type="file" name="idcardphoto_back[]" value=""   /></td>
       			</tr> 
       		</table>
       		<div class="buttons clearfix">
 		        <div class="pull-right">
-		        	<a href="javascript:void(0);" data-type="save" class="btn btn-default"><?php echo $button_save; ?></a>
-		        	&nbsp;&nbsp;
-		        	<a href="javascript:void(0);"  data-type="submit" class="btn btn-primary"><?php echo $button_submit; ?></a>
+		        	<a href="javascript:void(0);"  data-type="submit" class="btnsubmit btn btn-primary"><?php echo $button_submit; ?></a>
 		        </div>
 		      </div>
       </form>
@@ -48,3 +47,12 @@
     <?php echo $column_right; ?></div>
 </div>
 <?php echo $footer; ?>
+
+
+<script type="text/javascript"><!--
+	$(".btnsubmit").bind("click",function(obj){ 
+	  	var actionType = $(obj).data("type");
+		$("#actionType").val(actionType);
+		$("#uploadfile").submit(); 
+	});
+//--></script>

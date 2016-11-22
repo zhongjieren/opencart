@@ -59,13 +59,8 @@ class ControllerAccountApplyforseller extends Controller {
 		} else {
 			$data['success'] = '';
 		}
-
-// 		if(isset($currCustomerApplyedforseller['apply_id'])){
-// 			$data['applyforsellerurl'] = $this->url->link('account/applyforseller/saveorapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_strlen(DIR_IMAGE . 'catalog/customer/')) , true);
-// 		}else{
-			
-// 		}
-		$data['applyforsellerurl'] = $this->url->link('account/applyforseller/saveorapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_strlen(DIR_IMAGE . 'catalog/customer/')) , true);
+ 
+		$data['applyforsellerurl'] = $this->url->link('account/applyforseller/saveorapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode('customer') , true);
 		
 // 		$data['applyforsellerurl'] = $this->url->link('account/applyforseller/saveorapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_strlen(DIR_IMAGE . 'catalog/customer/')) , true);
 // 		$data['editapplyurl'] = $this->url->link('account/applyforseller/editapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_strlen(DIR_IMAGE . 'catalog/customer/')), true);
@@ -82,26 +77,30 @@ class ControllerAccountApplyforseller extends Controller {
 	
 	//saveorapply
 	public function saveorapply(){
-		
+	    $this->load->model('account/applyforseller');
+	     
 		$json = array();
 		$idcardphotoFrontjson = $this->upload("idcardphoto_front",$this->request);
 		$idcardphotoBackjson = $this->upload("idcardphoto_back",$this->request);
-		if(!$idcardphotoFrontjson['filename']!="" && !$idcardphotoBackjson['filename']!=""){
+		
+		if($idcardphotoFrontjson && $idcardphotoFrontjson['filename']!="" 
+		    && $idcardphotoBackjson && $idcardphotoBackjson['filename']!=""){
 			$data['idcardphoto_front'] = $idcardphotoFrontjson['filename'];
 			$data['idcardphoto_back'] = $idcardphotoBackjson['filename'];
-				
 			$this->model_account_applyforseller->addApplyforseller($data);
+			$this->response->redirect($this->url->link('account/account', 'token=' . $this->session->data['token'] . $url, true));
 		}
 		
-		
-		$this->response->addHeader('Content-Type: application/json');
-		$this->response->setOutput(json_encode($json));
+		$this->response->redirect($this->url->link('account/applyforseller', 'token=' . $this->session->data['token'] . $url, true));
+// 		$this->response->addHeader('Content-Type: application/json');
+// 		$this->response->setOutput(json_encode($json));
 	} 
 	
 	//saveorapply
 	public function editapply(){
 	
 		$json = array();
+		
 		$idcardphotoFrontjson = $this->upload("idcardphoto_front",$this->request);
 		$idcardphotoBackjson = $this->upload("idcardphoto_back",$this->request);
 		if(!$idcardphotoFrontjson['filename']!="" && !$idcardphotoFrontjson['filename']!=""){
@@ -133,7 +132,6 @@ class ControllerAccountApplyforseller extends Controller {
 		} else {
 			$directory = DIR_IMAGE . 'catalog/customer/';
 		}
-		
 		// Check its a directory
 		if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_IMAGE . 'catalog')) != DIR_IMAGE . 'catalog') {
 			$json['error'] = $this->language->get('error_directory');
@@ -142,7 +140,12 @@ class ControllerAccountApplyforseller extends Controller {
 		if (!$json) {
 			// Check if multiple files are uploaded or just one
 			$files = array();
-		
+// 			echo "upload Form file num : ".var_dump(count($request->files))."  \r\n----------";
+
+			echo "upload Form file num :   \r\n----------";
+			var_dump(count($request->files));
+			echo "  \r\n|||----------";
+			
 			if (!empty($request->files[$fileType]['name']) && is_array($request->files[$fileType]['name'])) {
 				foreach (array_keys($request->files[$fileType]['name']) as $key) {
 					$files[] = array(
@@ -154,12 +157,13 @@ class ControllerAccountApplyforseller extends Controller {
 					);
 				}
 			}
-		
+			echo "upload file num :   \r\n----------";
+			var_dump(count($files));
+			echo "  \r\n|||----------";
 			foreach ($files as $file) {
 				if (is_file($file['tmp_name'])) {
 					// Sanitize the filename
 					$filename = basename(html_entity_decode($file['name'], ENT_QUOTES, 'UTF-8'));
-					
 					// Validate the filename length
 					if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 255)) {
 						$json['error'] = $this->language->get('error_filename');
@@ -197,14 +201,18 @@ class ControllerAccountApplyforseller extends Controller {
 				} else {
 					$json['error'] = $this->language->get('error_upload');
 				}
-		
 				if (!$json) {
+				    $hz = utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1));
+				    $filename=date("Y").date("m").date("d").date("H").date("i").date("s").rand(100, 999).".". $hz;
 					move_uploaded_file($file['tmp_name'], $directory . '/' . $filename);
 				}
 				$json['filename'] = $filename;
 			}
 		}
-		
+// 		echo "upload final param: ".var_dump($json)."  \r\n";
+		echo "upload final file  :   \r\n----------";
+		var_dump($json);
+		echo "  \r\n|||----------";
 // 		if (!$json) {
 // 			$json['success'] = $this->language->get('text_uploaded');
 // 		}

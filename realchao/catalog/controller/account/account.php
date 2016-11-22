@@ -43,6 +43,9 @@ class ControllerAccountAccount extends Controller {
 		$data['text_wishlist'] = $this->language->get('text_wishlist');
 		$data['text_order'] = $this->language->get('text_order');
 		//add apply for seller
+		$this->load->model('account/applyforseller');
+		$currApplyforseller = $this->model_account_applyforseller->getApplyforseller();
+		$data['isapplyforseller'] =$currApplyforseller>0?1:0;
 		$data['text_applyforseller'] = $this->language->get('text_applyforseller');
 		
 		$data['text_download'] = $this->language->get('text_download');

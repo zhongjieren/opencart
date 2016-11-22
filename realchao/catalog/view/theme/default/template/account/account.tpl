@@ -35,8 +35,11 @@
       <h2><?php echo $text_my_orders; ?></h2>
       <ul class="list-unstyled">
         <li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
-        
-        <li><a href="<?php echo $applyforseller; ?>"><?php echo $text_applyforseller; ?></a></li>
+         
+         <?php if (!$isapplyforseller) { ?>
+          <li><a href="<?php echo $applyforseller; ?>"><?php echo $text_applyforseller; ?></a></li>
+         <?php } ?> 
+         
         <li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
         <?php if ($reward) { ?>
         <li><a href="<?php echo $reward; ?>"><?php echo $text_reward; ?></a></li>

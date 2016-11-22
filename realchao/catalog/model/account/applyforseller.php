@@ -1,6 +1,15 @@
 <?php
 class ModelAccountApplyforseller extends Model {
 	
+    public function getApplyforseller() {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "applyforseller where customer_id = '" . (int)$this->customer->getId() . "'");
+        if ($query->num_rows) {
+            return $query->row['customer_id'];
+        } else {
+            return 0;
+        }
+    }
+    
 	public function addApplyforseller($data) {
 		$this->db->query("INSERT INTO " . DB_PREFIX . "applyforseller SET customer_id = '" . (int)$this->customer->getId() . "', idcardphoto_front = '" . $this->db->escape($data['idcardphoto_front']) . "', idcardphoto_back = '" . $this->db->escape($data['idcardphoto_back']) . "'");
 		$apply_id = $this->db->getLastId();
