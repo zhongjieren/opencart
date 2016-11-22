@@ -10880,6 +10880,42 @@ INSERT INTO `mcc_zone_to_geo_zone` (`zone_to_geo_zone_id`, `country_id`, `zone_i
 (111, 44, 4225, 4, '2015-04-01 22:11:53', '0000-00-00 00:00:00'),
 (112, 44, 705, 4, '2015-04-01 22:11:53', '0000-00-00 00:00:00');
 
+
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `mcc_applyforseller`
+--
+
+CREATE TABLE IF NOT EXISTS `mcc_applyforseller` (
+	`apply_id` int(11) NOT NULL AUTO_INCREMENT,
+	`customer_id` int(11) NOT NULL ,
+	`idcardphoto_front` varchar(255),
+	`idcardphoto_back` varchar(255),
+	`status` tinyint(1) NOT NULL,
+	`date_added` datetime NOT NULL,
+	`date_modified` datetime NOT NULL,
+  
+  PRIMARY KEY (`apply_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `mcc_applyforseller`
+--
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

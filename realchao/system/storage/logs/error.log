@@ -847,3 +847,25 @@
 2016-11-18 22:16:33 - PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\project\opencart\opencartv2\realchao\system\library\mail.php on line 158
 2016-11-22 0:06:14 - PHP Notice:  Undefined variable: applyforseller in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\extension\module\account.tpl on line 9
 2016-11-22 0:06:14 - PHP Notice:  Undefined variable: text_applyforseller in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\extension\module\account.tpl on line 9
+2016-11-22 10:45:14 - PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in D:\arenzhjwork\git\opencart\realchao\system\library\mail.php on line 158
+2016-11-22 16:05:08 - PHP Notice:  Undefined variable: image in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 63
+2016-11-22 16:05:08 - PHP Notice:  Undefined variable: url in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 63
+2016-11-22 16:05:08 - PHP Notice:  Undefined variable: image in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 64
+2016-11-22 16:05:08 - PHP Notice:  Undefined variable: url in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 64
+2016-11-22 16:05:08 - PHP Notice:  Undefined variable: continue in D:\arenzhjwork\git\opencart\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 38
+2016-11-22 16:05:08 - PHP Notice:  Undefined variable: button_cancel in D:\arenzhjwork\git\opencart\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 38
+2016-11-22 16:05:08 - PHP Notice:  Undefined variable: continue in D:\arenzhjwork\git\opencart\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 40
+2016-11-22 16:05:08 - PHP Notice:  Undefined variable: button_continue in D:\arenzhjwork\git\opencart\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 40
+2016-11-22 16:06:03 - PHP Notice:  Undefined variable: image in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 63
+2016-11-22 16:06:03 - PHP Notice:  Undefined variable: url in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 63
+2016-11-22 16:06:03 - PHP Notice:  Undefined variable: image in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 64
+2016-11-22 16:06:03 - PHP Notice:  Undefined variable: url in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 64
+2016-11-22 16:06:03 - PHP Notice:  Undefined variable: button_cancel in D:\arenzhjwork\git\opencart\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 38
+2016-11-22 16:06:03 - PHP Notice:  Undefined variable: button_continue in D:\arenzhjwork\git\opencart\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 40
+2016-11-22 16:06:23 - PHP Notice:  Undefined variable: image in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 63
+2016-11-22 16:06:23 - PHP Notice:  Undefined variable: url in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 63
+2016-11-22 16:06:23 - PHP Notice:  Undefined variable: image in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 64
+2016-11-22 16:06:23 - PHP Notice:  Undefined variable: url in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 64
+2016-11-22 16:08:59 - PHP Notice:  Undefined variable: image in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 72
+2016-11-22 16:08:59 - PHP Notice:  Undefined variable: image in D:\arenzhjwork\git\opencart\realchao\catalog\controller\account\applyforseller.php on line 73
+2016-11-22 17:26:08 - PHP Notice:  Undefined variable: apply_id in D:\arenzhjwork\git\opencart\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 26

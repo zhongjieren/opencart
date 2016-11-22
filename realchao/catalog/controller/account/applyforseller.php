@@ -1,4 +1,5 @@
 <?php
+//Apply for seller
 class ControllerAccountApplyforseller extends Controller {
 	public function index() {
 		if (!$this->customer->isLogged()) {
@@ -6,24 +7,19 @@ class ControllerAccountApplyforseller extends Controller {
 
 			$this->response->redirect($this->url->link('account/login', '', true));
 		}
-
 		$this->load->language('account/wishlist');
-
 		$this->load->model('account/wishlist');
+		
+		$this->load->language('account/applyforseller');
+
+		$this->load->model('account/applyforseller');
 
 		$this->load->model('catalog/product');
 
 		$this->load->model('tool/image');
-
-		if (isset($this->request->get['remove'])) {
-			// Remove Wishlist
-			$this->model_account_wishlist->deleteWishlist($this->request->get['remove']);
-
-			$this->session->data['success'] = $this->language->get('text_remove');
-
-			$this->response->redirect($this->url->link('account/wishlist'));
-		}
-
+		
+		$currCustomerApplyedforseller = $this->model_account_applyforseller->getCurrCustomerApplyedforseller();
+		$data['saveorapplyurl'] = $currCustomerApplyedforseller;
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$data['breadcrumbs'] = array();
@@ -32,7 +28,7 @@ class ControllerAccountApplyforseller extends Controller {
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
 		);
-
+		
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_account'),
 			'href' => $this->url->link('account/account', '', true)
@@ -40,24 +36,22 @@ class ControllerAccountApplyforseller extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('account/wishlist')
+			'href' => $this->url->link('account/applyforseller')
 		);
 
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['text_empty'] = $this->language->get('text_empty');
-
-		$data['column_image'] = $this->language->get('column_image');
-		$data['column_name'] = $this->language->get('column_name');
-		$data['column_model'] = $this->language->get('column_model');
-		$data['column_stock'] = $this->language->get('column_stock');
-		$data['column_price'] = $this->language->get('column_price');
-		$data['column_action'] = $this->language->get('column_action');
-
-		$data['button_continue'] = $this->language->get('button_continue');
-		$data['button_cart'] = $this->language->get('button_cart');
-		$data['button_remove'] = $this->language->get('button_remove');
-
+		
+		
+		
+		$data['column_idcardphoto_front'] = $this->language->get('column_idcardphoto_front');
+		$data['column_idcardphoto_back'] = $this->language->get('column_idcardphoto_back');
+		 
+		$data['button_save'] = $this->language->get('button_save');
+		$data['button_submit'] = $this->language->get('button_submit');
+		
+	 
 		if (isset($this->session->data['success'])) {
 			$data['success'] = $this->session->data['success'];
 
@@ -66,58 +60,16 @@ class ControllerAccountApplyforseller extends Controller {
 			$data['success'] = '';
 		}
 
-		$data['products'] = array();
-
-		$results = $this->model_account_wishlist->getWishlist();
-
-		foreach ($results as $result) {
-			$product_info = $this->model_catalog_product->getProduct($result['product_id']);
-
-			if ($product_info) {
-				if ($product_info['image']) {
-					$image = $this->model_tool_image->resize($product_info['image'], $this->config->get($this->config->get('config_theme') . '_image_wishlist_width'), $this->config->get($this->config->get('config_theme') . '_image_wishlist_height'));
-				} else {
-					$image = false;
-				}
-
-				if ($product_info['quantity'] <= 0) {
-					$stock = $product_info['stock_status'];
-				} elseif ($this->config->get('config_stock_display')) {
-					$stock = $product_info['quantity'];
-				} else {
-					$stock = $this->language->get('text_instock');
-				}
-
-				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-					$price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-				} else {
-					$price = false;
-				}
-
-				if ((float)$product_info['special']) {
-					$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
-				} else {
-					$special = false;
-				}
-
-				$data['products'][] = array(
-					'product_id' => $product_info['product_id'],
-					'thumb'      => $image,
-					'name'       => $product_info['name'],
-					'model'      => $product_info['model'],
-					'stock'      => $stock,
-					'price'      => $price,
-					'special'    => $special,
-					'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
-					'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
-				);
-			} else {
-				$this->model_account_wishlist->deleteWishlist($result['product_id']);
-			}
-		}
-
-		$data['continue'] = $this->url->link('account/account', '', true);
-
+// 		if(isset($currCustomerApplyedforseller['apply_id'])){
+// 			$data['applyforsellerurl'] = $this->url->link('account/applyforseller/saveorapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_strlen(DIR_IMAGE . 'catalog/customer/')) , true);
+// 		}else{
+			
+// 		}
+		$data['applyforsellerurl'] = $this->url->link('account/applyforseller/saveorapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_strlen(DIR_IMAGE . 'catalog/customer/')) , true);
+		
+// 		$data['applyforsellerurl'] = $this->url->link('account/applyforseller/saveorapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_strlen(DIR_IMAGE . 'catalog/customer/')) , true);
+// 		$data['editapplyurl'] = $this->url->link('account/applyforseller/editapply', 'token=' . $this->session->data['token'] . '&directory=' . urlencode(utf8_strlen(DIR_IMAGE . 'catalog/customer/')), true);
+		
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
 		$data['content_top'] = $this->load->controller('common/content_top');
@@ -125,50 +77,143 @@ class ControllerAccountApplyforseller extends Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 		$data['header'] = $this->load->controller('common/header');
 
-		$this->response->setOutput($this->load->view('account/wishlist', $data));
+		$this->response->setOutput($this->load->view('account/applyforseller', $data));
 	}
-
-	public function add() {
-		$this->load->language('account/wishlist');
-
+	
+	//saveorapply
+	public function saveorapply(){
+		
 		$json = array();
-
-		if (isset($this->request->post['product_id'])) {
-			$product_id = $this->request->post['product_id'];
-		} else {
-			$product_id = 0;
+		$idcardphotoFrontjson = $this->upload("idcardphoto_front",$this->request);
+		$idcardphotoBackjson = $this->upload("idcardphoto_back",$this->request);
+		if(!$idcardphotoFrontjson['filename']!="" && !$idcardphotoBackjson['filename']!=""){
+			$data['idcardphoto_front'] = $idcardphotoFrontjson['filename'];
+			$data['idcardphoto_back'] = $idcardphotoBackjson['filename'];
+				
+			$this->model_account_applyforseller->addApplyforseller($data);
 		}
-
-		$this->load->model('catalog/product');
-
-		$product_info = $this->model_catalog_product->getProduct($product_id);
-
-		if ($product_info) {
-			if ($this->customer->isLogged()) {
-				// Edit customers cart
-				$this->load->model('account/wishlist');
-
-				$this->model_account_wishlist->addWishlist($this->request->post['product_id']);
-
-				$json['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
-
-				$json['total'] = sprintf($this->language->get('text_wishlist'), $this->model_account_wishlist->getTotalWishlist());
-			} else {
-				if (!isset($this->session->data['wishlist'])) {
-					$this->session->data['wishlist'] = array();
-				}
-
-				$this->session->data['wishlist'][] = $this->request->post['product_id'];
-
-				$this->session->data['wishlist'] = array_unique($this->session->data['wishlist']);
-
-				$json['success'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true), $this->url->link('product/product', 'product_id=' . (int)$this->request->post['product_id']), $product_info['name'], $this->url->link('account/wishlist'));
-
-				$json['total'] = sprintf($this->language->get('text_wishlist'), (isset($this->session->data['wishlist']) ? count($this->session->data['wishlist']) : 0));
-			}
+		
+		
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	} 
+	
+	//saveorapply
+	public function editapply(){
+	
+		$json = array();
+		$idcardphotoFrontjson = $this->upload("idcardphoto_front",$this->request);
+		$idcardphotoBackjson = $this->upload("idcardphoto_back",$this->request);
+		if(!$idcardphotoFrontjson['filename']!="" && !$idcardphotoFrontjson['filename']!=""){
+			
+			$this->model_account_applyforseller->editAddress($this->request->get['address_id'], $this->request->post);
 		}
-
+	
+	
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+	
+	
+	
+	private function upload($fileType,$request){
+		$this->load->language('common/filemanager');
+		
+		$json = array();
+		
+		// Check user has permission
+		// 		if (!$this->user->hasPermission('modify', 'common/filemanager')) {
+		// 			$json['error'] = $this->language->get('error_permission');
+		// 		}
+		
+		// Make sure we have the correct directory
+		
+		if (isset($request->get['directory'])) {
+			$directory = rtrim(DIR_IMAGE . 'catalog/' . $request->get['directory'], '/');
+		} else {
+			$directory = DIR_IMAGE . 'catalog/customer/';
+		}
+		
+		// Check its a directory
+		if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_IMAGE . 'catalog')) != DIR_IMAGE . 'catalog') {
+			$json['error'] = $this->language->get('error_directory');
+		}
+		
+		if (!$json) {
+			// Check if multiple files are uploaded or just one
+			$files = array();
+		
+			if (!empty($request->files[$fileType]['name']) && is_array($request->files[$fileType]['name'])) {
+				foreach (array_keys($request->files[$fileType]['name']) as $key) {
+					$files[] = array(
+							'name'     => $request->files[$fileType]['name'][$key],
+							'type'     => $request->files[$fileType]['type'][$key],
+							'tmp_name' => $request->files[$fileType]['tmp_name'][$key],
+							'error'    => $request->files[$fileType]['error'][$key],
+							'size'     => $request->files[$fileType]['size'][$key]
+					);
+				}
+			}
+		
+			foreach ($files as $file) {
+				if (is_file($file['tmp_name'])) {
+					// Sanitize the filename
+					$filename = basename(html_entity_decode($file['name'], ENT_QUOTES, 'UTF-8'));
+					
+					// Validate the filename length
+					if ((utf8_strlen($filename) < 3) || (utf8_strlen($filename) > 255)) {
+						$json['error'] = $this->language->get('error_filename');
+					}
+					
+					// Allowed file extension types
+					$allowed = array(
+							'jpg',
+							'jpeg',
+							'gif',
+							'png'
+					);
+		
+					if (!in_array(utf8_strtolower(utf8_substr(strrchr($filename, '.'), 1)), $allowed)) {
+						$json['error'] = $this->language->get('error_filetype');
+					}
+		
+					// Allowed file mime types
+					$allowed = array(
+							'image/jpeg',
+							'image/pjpeg',
+							'image/png',
+							'image/x-png',
+							'image/gif'
+					);
+		
+					if (!in_array($file['type'], $allowed)) {
+						$json['error'] = $this->language->get('error_filetype');
+					}
+		
+					// Return any upload error
+					if ($file['error'] != UPLOAD_ERR_OK) {
+						$json['error'] = $this->language->get('error_upload_' . $file['error']);
+					}
+				} else {
+					$json['error'] = $this->language->get('error_upload');
+				}
+		
+				if (!$json) {
+					move_uploaded_file($file['tmp_name'], $directory . '/' . $filename);
+				}
+				$json['filename'] = $filename;
+			}
+		}
+		
+// 		if (!$json) {
+// 			$json['success'] = $this->language->get('text_uploaded');
+// 		}
+		
+		return $json;
+	}
+	
+	
+	
+	
+	
 }

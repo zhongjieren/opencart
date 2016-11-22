@@ -58,6 +58,7 @@ $_['button_list']           = '逐行';
 $_['button_grid']           = '网格';
 $_['button_map']            = '查看谷歌地图';
 $_['button_baidu_map']      = '查看百度地图';
+$_['button_save']      		= '保存';
 
 
 // Error
