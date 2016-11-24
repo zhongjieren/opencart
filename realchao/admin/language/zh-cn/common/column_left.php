@@ -12,6 +12,9 @@ $_['text_country']                   = '国家';
 $_['text_coupon']                    = '折扣券';
 $_['text_currency']                  = '货币';
 $_['text_customer']                  = '会员';
+//customer seller audit
+$_['text_customer_audit']                  = '会员卖家审核';
+
 $_['text_customer_group']            = '会员等级';
 $_['text_custom_field']              = '自定义字段';
 $_['text_dashboard']                 = '仪表盘';

@@ -1,6 +1,6 @@
 <?php
 // Heading
-$_['heading_title']         = '会员';
+$_['heading_title']         = '会员卖家审核';
 
 // Text
 $_['text_success']          = '成功: 已修改会员！';
@@ -23,8 +23,6 @@ $_['column_points']         = '奖励积分';
 $_['column_ip']             = 'IP';
 $_['column_total']          = '账户总数量';
 $_['column_action']         = '操作';
-//seller audit
-$_['column_isaudit']         = '卖家审核';
 
 // Entry
 $_['entry_customer_group']  = '会员等级';
@@ -51,21 +49,8 @@ $_['entry_amount']          = '金额';
 $_['entry_points']          = '奖励积分';
 $_['entry_name']            = '会员姓名';
 $_['entry_ip']              = 'IP';
-//seller audit
-$_['entry_isaudit']         = '卖家审核';
-
 $_['entry_date_added']      = '添加日期';
 $_['entry_shipping_telephone']       = '收件人电话';
-
-//SELECT op
-$_['op_isaudit_all']      = '全部';
-$_['op_isaudit_noaudited']       = '待审核';
-$_['op_isaudit_pass']      = '审核通过'; 
-
-$_['text_apply_idcard']      = '身份证';
-$_['apply_backpic']      = '反面';
-$_['apply_frontpic']      = '正面';
-
 
 // Help
 $_['help_safe']             = 'Set to true to avoid this customer from being caught by the anti-fraud system';

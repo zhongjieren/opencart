@@ -54,14 +54,6 @@ class ModelCustomerCustomer extends Model {
 		$this->db->query("UPDATE " . DB_PREFIX . "customer SET token = '" . $this->db->escape($token) . "' WHERE customer_id = '" . (int)$customer_id . "'");
 	}
 
-	public function doApplyaudit($customer_id) {
-		if (!isset($customer_id)) {
-			return;
-		}
-		$this->db->query("UPDATE " . DB_PREFIX . "applyforseller SET isaudit = '1' WHERE customer_id = '" . (int)$customer_id . "'");
-	}
-	
-	
 	public function deleteCustomer($customer_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "customer WHERE customer_id = '" . (int)$customer_id . "'");
 		$this->db->query("DELETE FROM " . DB_PREFIX . "customer_activity WHERE customer_id = '" . (int)$customer_id . "'");
@@ -84,19 +76,10 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	public function getCustomers($data = array()) {
-		$sql = "SELECT *, c.fullname AS name, cgd.name AS customer_group,"
-				." apply.isaudit as isaudit,apply.idcardphoto_back as idcardphoto_back,apply.idcardphoto_front as idcardphoto_front FROM " 
-				. DB_PREFIX . "customer c "
-				."  LEFT JOIN " . DB_PREFIX . "applyforseller apply ON c.customer_id = apply.customer_id "
-				." LEFT JOIN " . DB_PREFIX . "customer_group_description cgd ON (c.customer_group_id = cgd.customer_group_id) WHERE cgd.language_id = '" 
-						. (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT *, c.fullname AS name, cgd.name AS customer_group FROM " . DB_PREFIX . "customer c LEFT JOIN " . DB_PREFIX . "customer_group_description cgd ON (c.customer_group_id = cgd.customer_group_id) WHERE cgd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$implode = array();
-	
-		if (!empty($data['filter_isaudit']) && $data['filter_isaudit']=="2") {
-			$implode[] = "apply.isaudit =0 ";
-		}
-		
+
 		if (!empty($data['filter_name'])) {
 			$implode[] = "c.fullname LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
 		}
@@ -296,47 +279,40 @@ class ModelCustomerCustomer extends Model {
 	}
 
 	public function getTotalCustomers($data = array()) {
-		$sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "customer c "
-				."  LEFT JOIN " . DB_PREFIX . "applyforseller apply ON c.customer_id = apply.customer_id "
-						;
-		
+		$sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "customer";
+
 		$implode = array();
-		
-		if (!empty($data['filter_isaudit']) && $data['filter_isaudit']=="2") {
-			$implode[] = "apply.isaudit =0 ";
-		}
-		
-		
+
 		if (!empty($data['filter_name'])) {
-			$implode[] = "c.fullname LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+			$implode[] = "fullname LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
 		if (!empty($data['filter_email'])) {
-			$implode[] = "c.email LIKE '" . $this->db->escape($data['filter_email']) . "%'";
+			$implode[] = "email LIKE '" . $this->db->escape($data['filter_email']) . "%'";
 		}
 
 		if (isset($data['filter_newsletter']) && !is_null($data['filter_newsletter'])) {
-			$implode[] = "c.newsletter = '" . (int)$data['filter_newsletter'] . "'";
+			$implode[] = "newsletter = '" . (int)$data['filter_newsletter'] . "'";
 		}
 
 		if (!empty($data['filter_customer_group_id'])) {
-			$implode[] = "c.customer_group_id = '" . (int)$data['filter_customer_group_id'] . "'";
+			$implode[] = "customer_group_id = '" . (int)$data['filter_customer_group_id'] . "'";
 		}
 
 		if (!empty($data['filter_ip'])) {
-			$implode[] = "c.customer_id IN (SELECT customer_id FROM " . DB_PREFIX . "customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
+			$implode[] = "customer_id IN (SELECT customer_id FROM " . DB_PREFIX . "customer_ip WHERE ip = '" . $this->db->escape($data['filter_ip']) . "')";
 		}
 
 		if (isset($data['filter_status']) && !is_null($data['filter_status'])) {
-			$implode[] = "c.status = '" . (int)$data['filter_status'] . "'";
+			$implode[] = "status = '" . (int)$data['filter_status'] . "'";
 		}
 
 		if (isset($data['filter_approved']) && !is_null($data['filter_approved'])) {
-			$implode[] = "c.approved = '" . (int)$data['filter_approved'] . "'";
+			$implode[] = "approved = '" . (int)$data['filter_approved'] . "'";
 		}
 
 		if (!empty($data['filter_date_added'])) {
-			$implode[] = "DATE(c.date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
+			$implode[] = "DATE(date_added) = DATE('" . $this->db->escape($data['filter_date_added']) . "')";
 		}
 
 		if ($implode) {

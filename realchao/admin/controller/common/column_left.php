@@ -466,6 +466,14 @@ class ControllerCommonColumnLeft extends Controller {
 				);	
 			}
 			
+// 			if ($this->user->hasPermission('access', 'customer/customer')) {
+// 				$customer[] = array(
+// 						'name'	   => $this->language->get('text_customer_audit'),
+// 						'href'     => $this->url->link('customer/customer_audit', 'token=' . $this->session->data['token'], true),
+// 						'children' => array()
+// 				);
+// 			}
+			
 			if ($this->user->hasPermission('access', 'customer/customer_group')) {
 				$customer[] = array(
 					'name'	   => $this->language->get('text_customer_group'),

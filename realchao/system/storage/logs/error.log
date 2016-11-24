@@ -921,3 +921,4 @@
 2016-11-23 0:21:11 - PHP Notice:  Undefined variable: isapplyforseller in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\extension\module\account.tpl on line 11
 2016-11-23 0:22:42 - PHP Notice:  Undefined variable: apply_id in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 26
 2016-11-23 0:22:55 - PHP Notice:  Undefined variable: url in C:\project\opencart\opencartv21\realchao\catalog\controller\account\applyforseller.php on line 91
+2016-11-24 22:33:37 - PHP Notice:  Undefined variable: apply_id in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 26

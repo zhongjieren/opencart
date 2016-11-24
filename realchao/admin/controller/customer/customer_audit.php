@@ -3,11 +3,11 @@ class ControllerCustomerCustomer extends Controller {
 	private $error = array();
 
 	public function index() {
-		$this->load->language('customer/customer');
+		$this->load->language('customer/customer_audit');
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('customer/customer');
+		$this->load->model('customer/customer_audit');
 
 		$this->getList();
 	}
@@ -261,7 +261,7 @@ class ControllerCustomerCustomer extends Controller {
 
 		$this->getList();
 	}
-	
+
 	public function unlock() {
 		$this->load->language('customer/customer');
 
@@ -321,73 +321,8 @@ class ControllerCustomerCustomer extends Controller {
 
 		$this->getList();
 	}
-	
-	public function applyaudit() {
-		$this->load->language('customer/customer');
-	
-		$this->document->setTitle($this->language->get('heading_title'));
-	
-		$this->load->model('customer/customer');
-	
-		if (isset($this->request->get['customer_id']) ) {
-			$this->model_customer_customer->doApplyaudit($this->request->get['customer_id']);
-			$this->session->data['success'] = $this->language->get('text_success');
-			
-			$url = '';
-			
-			if (isset($this->request->get['filter_name'])) {
-				$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
-			}
-	
-			if (isset($this->request->get['filter_email'])) {
-				$url .= '&filter_email=' . urlencode(html_entity_decode($this->request->get['filter_email'], ENT_QUOTES, 'UTF-8'));
-			}
-	
-			if (isset($this->request->get['filter_customer_group_id'])) {
-				$url .= '&filter_customer_group_id=' . $this->request->get['filter_customer_group_id'];
-			}
-	
-			if (isset($this->request->get['filter_status'])) {
-				$url .= '&filter_status=' . $this->request->get['filter_status'];
-			}
-	
-			if (isset($this->request->get['filter_approved'])) {
-				$url .= '&filter_approved=' . $this->request->get['filter_approved'];
-			}
-	
-			if (isset($this->request->get['filter_ip'])) {
-				$url .= '&filter_ip=' . $this->request->get['filter_ip'];
-			}
-	
-			if (isset($this->request->get['filter_date_added'])) {
-				$url .= '&filter_date_added=' . $this->request->get['filter_date_added'];
-			}
-	
-			if (isset($this->request->get['sort'])) {
-				$url .= '&sort=' . $this->request->get['sort'];
-			}
-	
-			if (isset($this->request->get['order'])) {
-				$url .= '&order=' . $this->request->get['order'];
-			}
-	
-			if (isset($this->request->get['page'])) {
-				$url .= '&page=' . $this->request->get['page'];
-			}
-	
-			$this->response->redirect($this->url->link('customer/customer', 'token=' . $this->session->data['token'] . $url, true));
-		}
-	
-		$this->getList();
-	}
-	
+
 	protected function getList() {
-		if (isset($this->request->get['filter_isaudit']) ) {
-			$filter_isaudit = $this->request->get['filter_isaudit']=="2"?"2":"1";
-		} else {
-			$filter_isaudit = "1";
-		}
-		
 		if (isset($this->request->get['filter_name'])) {
 			$filter_name = $this->request->get['filter_name'];
 		} else {
@@ -449,11 +384,7 @@ class ControllerCustomerCustomer extends Controller {
 		}
 
 		$url = '';
-		
-		if (isset($this->request->get['filter_isaudit'])) {
-			$url .= '&filter_isaudit=' . ($this->request->get['filter_isaudit']=="2"?"2":"1");
-		}
-		
+
 		if (isset($this->request->get['filter_name'])) {
 			$url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
 		}
@@ -495,7 +426,7 @@ class ControllerCustomerCustomer extends Controller {
 		}
 
 		$data['breadcrumbs'] = array();
-
+		
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/dashboard', 'token=' . $this->session->data['token'], true)
@@ -512,7 +443,6 @@ class ControllerCustomerCustomer extends Controller {
 		$data['customers'] = array();
 
 		$filter_data = array(
-			'filter_isaudit'              => $filter_isaudit,
 			'filter_name'              => $filter_name,
 			'filter_email'             => $filter_email,
 			'filter_customer_group_id' => $filter_customer_group_id,
@@ -536,24 +466,6 @@ class ControllerCustomerCustomer extends Controller {
 			} else {
 				$approve = '';
 			}
-			
-			$applyurl="";
-			$applyfrontpicurl="";
-			$applybackpicurl ="";
-			if (is_null($result['isaudit'])) {
-				//no apply
-				$result['isaudit']="2";
-			} else if($result['isaudit']==1){
-				//audit pass
-				$result['isaudit']="1";
-			}else{
-				//apply no audit 
-				$result['isaudit']="3";
-				$applyurl = $this->url->link('customer/customer/applyaudit', 'token=' . $this->session->data['token'] . '&customer_id=' . $result['customer_id'] . $url, true);
-				$imageRootUrl = HTTP_CATALOG."image/catalog/customer/";
-				$applyfrontpicurl = $imageRootUrl.$result['idcardphoto_front'];
-				$applybackpicurl = $imageRootUrl.$result['idcardphoto_back'];
-			}
 
 			$login_info = $this->model_customer_customer->getTotalLoginAttempts($result['email']);
 
@@ -570,10 +482,6 @@ class ControllerCustomerCustomer extends Controller {
 				'customer_group' => $result['customer_group'],
 				'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'ip'             => $result['ip'],
-				'isaudit'             => $result['isaudit'],
-				'applyurl'         => $applyurl,
-				'applyfrontpicurl' => $applyfrontpicurl,
-				'applybackpicurl'  => $applybackpicurl,
 				'date_added'     => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'approve'        => $approve,
 				'unlock'         => $unlock,
@@ -591,16 +499,13 @@ class ControllerCustomerCustomer extends Controller {
 		$data['text_default'] = $this->language->get('text_default');
 		$data['text_no_results'] = $this->language->get('text_no_results');
 		$data['text_confirm'] = $this->language->get('text_confirm');
-		
+
 		$data['column_name'] = $this->language->get('column_name');
 		$data['column_email'] = $this->language->get('column_email');
 		$data['column_customer_group'] = $this->language->get('column_customer_group');
 		$data['column_status'] = $this->language->get('column_status');
 		$data['column_approved'] = $this->language->get('column_approved');
 		$data['column_ip'] = $this->language->get('column_ip');
-		//seller audit
-		$data['column_isaudit'] = $this->language->get('column_isaudit');
-		
 		$data['column_date_added'] = $this->language->get('column_date_added');
 		$data['column_action'] = $this->language->get('column_action');
 
@@ -610,17 +515,6 @@ class ControllerCustomerCustomer extends Controller {
 		$data['entry_status'] = $this->language->get('entry_status');
 		$data['entry_approved'] = $this->language->get('entry_approved');
 		$data['entry_ip'] = $this->language->get('entry_ip');
-		//seller audit
-		$data['entry_isaudit'] = $this->language->get('entry_isaudit');
-		
-		$data['op_isaudit_all'] = $this->language->get('op_isaudit_all');
-		$data['op_isaudit_noaudited'] = $this->language->get('op_isaudit_noaudited');
-		$data['op_isaudit_pass'] = $this->language->get('op_isaudit_pass');
-		
-		$data['text_apply_idcard'] = $this->language->get('text_apply_idcard');
-		$data['apply_frontpic'] = $this->language->get('apply_frontpic');
-		$data['apply_backpic'] = $this->language->get('apply_backpic');
-		
 		$data['entry_date_added'] = $this->language->get('entry_date_added');
 
 		$data['button_approve'] = $this->language->get('button_approve');

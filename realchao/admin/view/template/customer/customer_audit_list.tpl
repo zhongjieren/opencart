@@ -93,9 +93,8 @@
                 <label class="control-label" for="input-ip"><?php echo $entry_ip; ?></label>
                 <input type="text" name="filter_ip" value="<?php echo $filter_ip; ?>" placeholder="<?php echo $entry_ip; ?>" id="input-ip" class="form-control" />
               </div>
-              
             </div>
-            <div class="col-sm-3"> 
+            <div class="col-sm-3">
               <div class="form-group">
                 <label class="control-label" for="input-date-added"><?php echo $entry_date_added; ?></label>
                 <div class="input-group date">
@@ -103,18 +102,6 @@
                   <span class="input-group-btn">
                   <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
                   </span></div>
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="input-isaudit"><?php echo $entry_isaudit; ?></label>
-                <select name="filter_isaudit" id="input-isaudit" class="form-control">
-                  <?php if ($filter_approved) { ?>
-                  <option value="1" selected="selected"><?php echo $op_isaudit_all; ?></option>
-                  <option value="0"><?php echo $op_isaudit_noaudited; ?></option>
-                  <?php } else { ?>
-                  <option value="1" ><?php echo $op_isaudit_all; ?></option>
-                  <option value="0"  selected="selected"><?php echo $op_isaudit_noaudited; ?></option>
-                  <?php } ?> 
-                </select>
               </div>
               <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-filter"></i> <?php echo $button_filter; ?></button>
             </div>
@@ -151,9 +138,6 @@
                     <?php } else { ?>
                     <a href="<?php echo $sort_ip; ?>"><?php echo $column_ip; ?></a>
                     <?php } ?></td>
-                    
-                  <td class="text-left"> <?php echo $column_isaudit; ?>  </td>
-                    
                   <td class="text-left"><?php if ($sort == 'c.date_added') { ?>
                     <a href="<?php echo $sort_date_added; ?>" class="<?php echo strtolower($order); ?>"><?php echo $column_date_added; ?></a>
                     <?php } else { ?>
@@ -176,19 +160,6 @@
                   <td class="text-left"><?php echo $customer['customer_group']; ?></td>
                   <td class="text-left"><?php echo $customer['status']; ?></td>
                   <td class="text-left"><?php echo $customer['ip']; ?></td>
-                  <td class="text-left"> 
-                  	<?php if ($customer['isaudit']=='3') { ?>
-                    <a href="<?php echo $customer['applyurl']; ?>" title="<?php echo $op_isaudit_noaudited; ?>" > <?php echo $op_isaudit_noaudited; ?>  </a>
-                    (<?php echo $text_apply_idcard; ?>:
-                    <a href="<?php echo $customer['applyfrontpicurl']; ?>" target="_blank" title="<?php echo $apply_frontpic; ?>" > <?php echo $apply_frontpic; ?> </a>
-                    |
-                    <a href="<?php echo $customer['applybackpicurl']; ?>"  target="_blank" title="<?php echo $apply_backpic; ?>" > <?php echo $apply_backpic; ?>  </a>
-                    )
-                    <?php } else if ($customer['isaudit']=='1'){ ?>
-                    	<?php echo $op_isaudit_pass; ?> 
-              	 	<?php } ?> 
-                  </td>
-                  
                   <td class="text-left"><?php echo $customer['date_added']; ?></td>
                   <td class="text-right"><?php if ($customer['approve']) { ?>
                     <a href="<?php echo $customer['approve']; ?>" data-toggle="tooltip" title="<?php echo $button_approve; ?>" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i></a>
