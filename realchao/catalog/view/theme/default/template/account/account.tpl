@@ -40,6 +40,10 @@
           <li><a href="<?php echo $applyforseller; ?>"><?php echo $text_applyforseller; ?></a></li>
          <?php } ?> 
          
+         <?php if ($isaudit) { ?>
+          <li><a href="<?php echo $quotedprice; ?>"><?php echo $text_quoted_price; ?></a></li>
+         <?php } ?> 
+         
         <li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
         <?php if ($reward) { ?>
         <li><a href="<?php echo $reward; ?>"><?php echo $text_reward; ?></a></li>

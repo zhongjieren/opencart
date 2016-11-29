@@ -922,3 +922,29 @@
 2016-11-23 0:22:42 - PHP Notice:  Undefined variable: apply_id in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 26
 2016-11-23 0:22:55 - PHP Notice:  Undefined variable: url in C:\project\opencart\opencartv21\realchao\catalog\controller\account\applyforseller.php on line 91
 2016-11-24 22:33:37 - PHP Notice:  Undefined variable: apply_id in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\account\applyforseller.tpl on line 26
+2016-11-29 19:16:45 - PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\project\opencart\opencartv21\realchao\system\library\mail.php on line 158
+2016-11-29 19:16:46 - PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\project\opencart\opencartv21\realchao\system\library\mail.php on line 158
+2016-11-29 22:13:16 - PHP Warning:  Missing argument 1 for ModelAccountApplyforseller::getApplyforseller() in C:\project\opencart\opencartv21\realchao\catalog\model\account\applyforseller.php on line 13
+2016-11-29 22:13:16 - PHP Notice:  Undefined variable: customer_id in C:\project\opencart\opencartv21\realchao\catalog\model\account\applyforseller.php on line 14
+2016-11-29 22:34:52 - PHP Notice:  Undefined variable: quotedprice in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\extension\module\account.tpl on line 15
+2016-11-29 22:35:38 - PHP Notice:  Undefined variable: quotedprice in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\extension\module\account.tpl on line 15
+2016-11-29 22:35:41 - PHP Notice:  Undefined variable: quotedprice in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\extension\module\account.tpl on line 15
+2016-11-29 23:28:09 - PHP Notice:  Undefined variable: page in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 72
+2016-11-29 23:28:09 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:28:09 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:28:09 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:28:09 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:28:09 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:28:10 - PHP Notice:  Undefined variable: orders in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\account\quotedprice_list.tpl on line 18
+2016-11-29 23:29:03 - PHP Notice:  Undefined variable: page in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 72
+2016-11-29 23:29:03 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:29:03 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:29:03 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:29:03 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:29:03 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 192
+2016-11-29 23:29:59 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 131
+2016-11-29 23:29:59 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 131
+2016-11-29 23:29:59 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 131
+2016-11-29 23:29:59 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 131
+2016-11-29 23:29:59 - PHP Notice:  Undefined variable: order_total in C:\project\opencart\opencartv21\realchao\catalog\controller\account\quotedprice.php on line 131
+2016-11-29 23:42:23 - PHP Notice:  Undefined variable: button_filter in C:\project\opencart\opencartv21\realchao\catalog\view\theme\default\template\account\quotedprice_list.tpl on line 30

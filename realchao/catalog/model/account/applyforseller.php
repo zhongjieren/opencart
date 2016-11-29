@@ -1,13 +1,18 @@
 <?php
 class ModelAccountApplyforseller extends Model {
 	
+//     public function getApplyforseller() {
+//         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "applyforseller where customer_id = '" . (int)$this->customer->getId() . "'");
+//         if ($query->num_rows) {
+//             return $query->row['customer_id'];
+//         } else {
+//             return 0;
+//         }
+//     }
+    
     public function getApplyforseller() {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "applyforseller where customer_id = '" . (int)$this->customer->getId() . "'");
-        if ($query->num_rows) {
-            return $query->row['customer_id'];
-        } else {
-            return 0;
-        }
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "applyforseller WHERE customer_id = '" . (int)$this->customer->getId() . "'");
+        return $query->row;
     }
     
 	public function addApplyforseller($data) {

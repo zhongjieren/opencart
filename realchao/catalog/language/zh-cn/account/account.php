@@ -16,6 +16,8 @@ $_['text_wishlist']      = '修改收藏列表';
 $_['text_order']         = '查看历史订单';
 
 $_['text_applyforseller']         = '申请为卖家';
+$_['text_quoted_price']         = '产品报价';
+
 
 $_['text_download']      = '下载类文件';
 $_['text_reward']        = '奖励积分';

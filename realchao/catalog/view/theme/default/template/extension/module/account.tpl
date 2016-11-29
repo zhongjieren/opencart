@@ -7,9 +7,14 @@
   <a href="<?php echo $edit; ?>" class="list-group-item"><?php echo $text_edit; ?></a> <a href="<?php echo $password; ?>" class="list-group-item"><?php echo $text_password; ?></a>
   <?php } ?>
   <a href="<?php echo $address; ?>" class="list-group-item"><?php echo $text_address; ?></a> <a href="<?php echo $wishlist; ?>" class="list-group-item"><?php echo $text_wishlist; ?></a> <a href="<?php echo $order; ?>" class="list-group-item"><?php echo $text_order; ?></a>  
-    <?php if (!$isapplyforseller) { ?>
-      <a href="<?php echo $applyforseller; ?>" class="list-group-item"><?php echo $text_applyforseller; ?></a>
-   <?php } ?> 
+	
+	<?php if (!$isapplyforseller) { ?>
+		<a href="<?php echo $applyforseller; ?>" class="list-group-item"><?php echo $text_applyforseller; ?></a>
+	<?php } ?> 
+	 <?php if ($isaudit) { ?>
+		<a href="<?php echo $quotedprice; ?>" class="list-group-item"><?php echo $text_quoted_price; ?></a>
+	<?php } ?> 
+         
 
    <a href="<?php echo $download; ?>" class="list-group-item"><?php echo $text_download; ?></a><a href="<?php echo $recurring; ?>" class="list-group-item"><?php echo $text_recurring; ?></a> <a href="<?php echo $reward; ?>" class="list-group-item"><?php echo $text_reward; ?></a> <a href="<?php echo $return; ?>" class="list-group-item"><?php echo $text_return; ?></a> <a href="<?php echo $transaction; ?>" class="list-group-item"><?php echo $text_transaction; ?></a> <a href="<?php echo $newsletter; ?>" class="list-group-item"><?php echo $text_newsletter; ?></a>
   <?php if ($logged) { ?>

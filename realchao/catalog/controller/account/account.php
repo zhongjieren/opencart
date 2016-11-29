@@ -45,7 +45,20 @@ class ControllerAccountAccount extends Controller {
 		//add apply for seller
 		$this->load->model('account/applyforseller');
 		$currApplyforseller = $this->model_account_applyforseller->getApplyforseller();
-		$data['isapplyforseller'] =$currApplyforseller>0?1:0;
+		if(!empty($currApplyforseller)){
+		    $data['isapplyforseller'] =1; 
+		    
+		    //add quoted price for product
+		    $data['text_quoted_price'] = $this->language->get('text_quoted_price');
+		    if($currApplyforseller['isaudit']==1){
+		        $data['isaudit'] =1;
+		    }else{
+		        $data['isaudit'] =0;
+		    }
+		    
+		}else{
+		    $data['isapplyforseller'] =0;
+		}
 		$data['text_applyforseller'] = $this->language->get('text_applyforseller');
 		
 		$data['text_download'] = $this->language->get('text_download');
@@ -80,7 +93,9 @@ class ControllerAccountAccount extends Controller {
 		$data['order'] = $this->url->link('account/order', '', true);
 		//add apply for seller Url
 		$data['applyforseller'] = $this->url->link('account/applyforseller', '', true);
-		
+		//add quoted price for product
+		$data['quotedprice'] = $this->url->link('account/quotedprice', '', true);
+		 
 		$data['download'] = $this->url->link('account/download', '', true);
 		
 		if ($this->config->get('reward_status')) {
