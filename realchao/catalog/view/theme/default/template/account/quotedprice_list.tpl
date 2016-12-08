@@ -16,19 +16,28 @@
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
 		<h1><?php echo $heading_title; ?></h1>
 		 <div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 			  <div class="form-group">
 				<label class="control-label" for="input-name"><?php echo $entry_name; ?></label>
 				<input type="text" name="filter_name" value="<?php echo $filter_name; ?>" placeholder="<?php echo $entry_name; ?>" id="input-name" class="form-control" />
 			  </div> 
 			</div> 
-			<div class="col-sm-4"> 
-			  <div class="form-group">
-				<label class="control-label" for="input-model"><?php echo $entry_model; ?></label>
-				<input type="text" name="filter_model" value="<?php echo $filter_model; ?>" placeholder="<?php echo $entry_model; ?>" id="input-model" class="form-control" />
-			  </div>
+			<div class="col-sm-3"> 
+				<div class="form-group">
+					<label class="control-label" for="input-model"><?php echo $entry_model; ?></label>
+					<input type="text" name="filter_model" value="<?php echo $filter_model; ?>" placeholder="<?php echo $entry_model; ?>" id="input-model" class="form-control" />
+				</div>
 			</div> 
-			<div class="col-sm-4"> 
+			<div class="col-sm-3"> 
+				<div class="form-group">
+					<label class="control-label" for="input-model">竞价成功</label>
+					<select name="product_option" class="form-control">
+						<option value="1">全部</option>
+						<option value="2">成功</option>
+					</select>
+				</div>
+			</div> 
+			<div class="col-sm-3"> 
 			  <button type="button" id="button-filter" class="btn btn-primary pull-right" style="margin-top:20px;"><i class="fa fa-filter"></i> <?php echo $button_filter; ?></button>
 			</div>
 		  </div>
@@ -65,7 +74,8 @@
                 </div>
                 <?php } ?></td>
               <td class="text-right">
-              	 <a href="<?php echo $product['remove']; ?>" data-toggle="tooltip" title="<?php echo $button_remove; ?>" class="btn btn-danger">报价</a></td>
+              	 <a href="<?php echo $product['href']; ?>" data-toggle="tooltip" title="<?php echo $button_quotedprice; ?>" class="btn btn-danger"><?php echo $button_quotedprice; ?></a>
+          	 </td>
             </tr>
             <?php } ?>
           </tbody>

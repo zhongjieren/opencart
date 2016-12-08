@@ -23,6 +23,8 @@ class ControllerExtensionModuleAccount extends Controller {
 		    
 		    //add quoted price for product
 		    $data['text_quoted_price'] = $this->language->get('text_quoted_price');
+		    //do saller order
+		    $data['text_saller_order'] = $this->language->get('text_saller_order');
 		    if($currApplyforseller['isaudit']==1){
 		        $data['isaudit'] =1;
 		    }else{
@@ -56,6 +58,8 @@ class ControllerExtensionModuleAccount extends Controller {
 		$data['applyforseller'] = $this->url->link('account/applyforseller', '', true);
 		//add quoted price for product
 		$data['quotedprice'] = $this->url->link('account/quotedprice', '', true);
+		//do saller order
+		$data['sallerorder'] = $this->url->link('account/sallerorder', '', true);
 		
 		$data['download'] = $this->url->link('account/download', '', true);
 		$data['reward'] = $this->url->link('account/reward', '', true);

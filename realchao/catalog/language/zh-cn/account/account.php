@@ -17,6 +17,7 @@ $_['text_order']         = '查看历史订单';
 
 $_['text_applyforseller']         = '申请为卖家';
 $_['text_quoted_price']         = '产品报价';
+$_['text_saller_order']         = '卖家订单';
 
 
 $_['text_download']      = '下载类文件';

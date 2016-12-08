@@ -42,7 +42,8 @@
          
          <?php if ($isaudit) { ?>
           <li><a href="<?php echo $quotedprice; ?>"><?php echo $text_quoted_price; ?></a></li>
-         <?php } ?> 
+           <li><a href="<?php echo $sallerorder; ?>"><?php echo $text_saller_order; ?></a></li>
+         <?php } ?>
          
         <li><a href="<?php echo $download; ?>"><?php echo $text_download; ?></a></li>
         <?php if ($reward) { ?>

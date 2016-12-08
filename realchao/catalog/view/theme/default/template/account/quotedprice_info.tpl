@@ -25,46 +25,6 @@
     <?php } ?>
     <div id="content" class="<?php echo $class; ?>"><?php echo $content_top; ?>
       <h2><?php echo $heading_title; ?></h2>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <td class="text-left" colspan="2"><?php echo $text_order_detail; ?></td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left" style="width: 50%;"><?php if ($invoice_no) { ?>
-              <b><?php echo $text_invoice_no; ?></b> <?php echo $invoice_no; ?><br />
-              <?php } ?>
-              <b><?php echo $text_order_id; ?></b> #<?php echo $order_id; ?><br />
-              <b><?php echo $text_date_added; ?></b> <?php echo $date_added; ?></td>
-            <td class="text-left" style="width: 50%;"><?php if ($payment_method) { ?>
-              <b><?php echo $text_payment_method; ?></b> <?php echo $payment_method; ?><br />
-              <?php } ?>
-              <?php if ($shipping_method) { ?>
-              <b><?php echo $text_shipping_method; ?></b> <?php echo $shipping_method; ?>
-              <?php } ?></td>
-          </tr>
-        </tbody>
-      </table>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <td class="text-left" style="width: 50%; vertical-align: top;"><?php echo $text_payment_address; ?></td>
-            <?php if ($shipping_address) { ?>
-            <td class="text-left" style="width: 50%; vertical-align: top;"><?php echo $text_shipping_address; ?></td>
-            <?php } ?>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left"><?php echo $payment_address; ?></td>
-            <?php if ($shipping_address) { ?>
-            <td class="text-left"><?php echo $shipping_address; ?></td>
-            <?php } ?>
-          </tr>
-        </tbody>
-      </table>
       <div class="table-responsive">
         <table class="table table-bordered table-hover">
           <thead>
@@ -73,100 +33,122 @@
               <td class="text-left"><?php echo $column_model; ?></td>
               <td class="text-right"><?php echo $column_quantity; ?></td>
               <td class="text-right"><?php echo $column_price; ?></td>
-              <td class="text-right"><?php echo $column_total; ?></td>
-              <?php if ($products) { ?>
-              <td style="width: 20px;"></td>
-              <?php } ?>
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($products as $product) { ?>
             <tr>
-              <td class="text-left"><?php echo $product['name']; ?>
-                <?php foreach ($product['option'] as $option) { ?>
-                <br />
-                &nbsp;<small> - <?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
-                <?php } ?></td>
+              <td class="text-left"><?php echo $product['name']; ?></td>
               <td class="text-left"><?php echo $product['model']; ?></td>
               <td class="text-right"><?php echo $product['quantity']; ?></td>
               <td class="text-right"><?php echo $product['price']; ?></td>
-              <td class="text-right"><?php echo $product['total']; ?></td>
-              <td class="text-right" style="white-space: nowrap;"><?php if ($product['reorder']) { ?>
-                <a href="<?php echo $product['reorder']; ?>" data-toggle="tooltip" title="<?php echo $button_reorder; ?>" class="btn btn-primary"><i class="fa fa-shopping-cart"></i></a>
-                <?php } ?>
-                <a href="<?php echo $product['return']; ?>" data-toggle="tooltip" title="<?php echo $button_return; ?>" class="btn btn-danger"><i class="fa fa-reply"></i></a></td>
             </tr>
-            <?php } ?>
-            <?php foreach ($vouchers as $voucher) { ?>
-            <tr>
-              <td class="text-left"><?php echo $voucher['description']; ?></td>
-              <td class="text-left"></td>
-              <td class="text-right">1</td>
-              <td class="text-right"><?php echo $voucher['amount']; ?></td>
-              <td class="text-right"><?php echo $voucher['amount']; ?></td>
-              <?php if ($products) { ?>
-              <td></td>
-              <?php } ?>
-            </tr>
-            <?php } ?>
           </tbody>
-          <tfoot>
-            <?php foreach ($totals as $total) { ?>
-            <tr>
-              <td colspan="3"></td>
-              <td class="text-right"><b><?php echo $total['title']; ?></b></td>
-              <td class="text-right"><?php echo $total['text']; ?></td>
-              <?php if ($products) { ?>
-              <td></td>
-              <?php } ?>
-            </tr>
-            <?php } ?>
-          </tfoot>
         </table>
       </div>
-      <?php if ($comment) { ?>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <td class="text-left"><?php echo $text_comment; ?></td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left"><?php echo $comment; ?></td>
-          </tr>
-        </tbody>
-      </table>
-      <?php } ?>
-      <h3><?php echo $text_history; ?></h3>
-      <table class="table table-bordered table-hover">
-        <thead>
-          <tr>
-            <td class="text-left"><?php echo $column_date_added; ?></td>
-            <td class="text-left"><?php echo $column_status; ?></td>
-            <td class="text-left"><?php echo $column_comment; ?></td>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if ($histories) { ?>
-          <?php foreach ($histories as $history) { ?>
-          <tr>
-            <td class="text-left"><?php echo $history['date_added']; ?></td>
-            <td class="text-left"><?php echo $history['status']; ?></td>
-            <td class="text-left"><?php echo $history['comment']; ?></td>
-          </tr>
-          <?php } ?>
-          <?php } else { ?>
-          <tr>
-            <td colspan="3" class="text-center"><?php echo $text_no_results; ?></td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
+       
+		<h3><?php echo $text_quotedpricehistory; ?></h3>
+		<div class="table-responsive">
+			<form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
+			<input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>">
+			<input type="hidden" name="option_id" value="11">
+			<table id="product_attribute" class="table table-bordered table-hover">
+				<thead>
+					<tr>
+						<td class="text-left">产品类型</td>
+						<td class="text-left">库存数量</td> 
+						<td class="text-left">产品价格</td> 
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+				<?php $option_value_row = 0; ?>
+				 <?php if (isset($product_option['product_option_value'])) { ?>
+				 	
+					<?php foreach ($product_option['product_option_value'] as $product_option_value) { ?>
+					<tr id="option-value-row<?php echo $option_value_row; ?>">
+						<td class="text-left">
+						  <select name="product_option[product_option_value][<?php echo $option_value_row; ?>][option_value_id]" class="form-control">
+								<?php if (isset($option_values[$product_option['option_id']])) { ?>
+								<?php foreach ($option_values[$product_option['option_id']] as $option_value) { ?>
+								<?php if ($option_value['option_value_id'] == $product_option_value['option_value_id']) { ?>
+								<option value="<?php echo $option_value['option_value_id']; ?>" selected="selected"><?php echo $option_value['name']; ?></option>
+								<?php } else { ?>
+								<option value="<?php echo $option_value['option_value_id']; ?>"><?php echo $option_value['name']; ?></option>
+								<?php } ?>
+								<?php } ?>
+								<?php } ?> 
+							</select> 
+							<input type="hidden" name="product_option[product_option_value][<?php echo $option_value_row; ?>][product_option_value_id]" value="<?php echo $product_option_value['product_option_value_id']; ?>" />
+						</td>
+						<td class="text-right">
+							<input type="text" name="product_option[product_option_value][<?php echo $option_value_row; ?>][quantity]" value="<?php echo $product_option_value['quantity']; ?>" placeholder="<?php echo $entry_quantity; ?>" class="form-control" />
+						</td>
+						<td class="text-right">
+							<input type="text" name="product_option[product_option_value][<?php echo $option_value_row; ?>][price]" value="<?php echo $product_option_value['price']; ?>" placeholder="<?php echo $entry_price; ?>" class="form-control" />
+						</td> 
+						<td class="text-right">
+							<button type="button" onclick="$(this).tooltip('destroy');$('#option-value-row<?php echo $option_value_row; ?>').remove();"  data-toggle="tooltip" title="-" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button>
+						</td> 
+					</tr>
+					<?php $option_value_row++; ?>
+					<?php } ?>
+				<?php } ?>
+				</tbody>
+				 <tfoot>
+					<tr>
+					  <td colspan="3"></td>
+					  <td class="text-right"><button type="button" onclick="addOptionValue();"  data-toggle="tooltip" title="+" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></td>
+					</tr>
+				  </tfoot>
+			</table>
+			</form>
+			<select id="option-valuesop" style="display: none;">
+                <?php if (isset($option_values[$product_option['option_id']])) { ?>
+                <?php foreach ($option_values[$product_option['option_id']] as $option_value) { ?>
+                <option value="<?php echo $option_value['option_value_id']; ?>"><?php echo $option_value['name']; ?></option>
+                <?php } ?>
+                <?php } ?>
+             </select>
+		</div>
+	  
       <div class="buttons clearfix">
-        <div class="pull-right"><a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a></div>
+        <div class="pull-right">
+        	<button type="submit" form="form-product" data-toggle="tooltip" title="<?php echo $button_save; ?>" class="btn btn-primary"><i class="fa fa-save"></i></button>
+         
+        	&nbsp;&nbsp;&nbsp;
+        	<a href="<?php echo $continue; ?>" class="btn btn-primary"><?php echo $button_continue; ?></a>
+        </div>
       </div>
       <?php echo $content_bottom; ?></div>
     <?php echo $column_right; ?></div>
 </div>
+
+ <script type="text/javascript"><!--
+var option_value_row = <?php echo $option_value_row; ?>;
+
+function addOptionValue() {
+    html  = '<tr id="option-value-row' + option_value_row + '">';
+	html += '  <td class="text-left">'
+			+'<select name="product_option[product_option_value][' + option_value_row + '][option_value_id]" class="form-control"> '
+			+$('#option-valuesop').html() 
+			+' </select>'
+			+'<input type="hidden" name="product_option[product_option_value][' + option_value_row + '][product_option_value_id]" value="" />' 
+			+'  </td>';
+	html += '  <td class="text-right">';
+	html += '<input type="text" name="product_option[product_option_value][' + option_value_row + '][quantity]" value="" placeholder="<?php echo $entry_quantity; ?>" class="form-control" />';
+	html += '  </td>';
+	html += '  <td class="text-right">';
+	html += '<input type="text" name="product_option[product_option_value][' + option_value_row + '][price]" value="" placeholder="<?php echo $entry_price; ?>" class="form-control" />';
+	html += '  </td>'; 
+	html += '  <td class="text-right">';
+	 html += '  <button type="button" onclick="$(this).tooltip(\'destroy\');$(\'#option-value-row' + option_value_row + '\').remove();"  data-toggle="tooltip" title="-" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button> ';
+	html += '  </td>';
+    html += '</tr>';
+
+	$('#product_attribute tbody').append(html);
+	option_value_row++;
+} 
+//--></script>
+
+
 <?php echo $footer; ?>

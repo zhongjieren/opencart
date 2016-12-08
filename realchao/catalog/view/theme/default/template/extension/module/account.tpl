@@ -13,6 +13,7 @@
 	<?php } ?> 
 	 <?php if ($isaudit) { ?>
 		<a href="<?php echo $quotedprice; ?>" class="list-group-item"><?php echo $text_quoted_price; ?></a>
+		<a href="<?php echo $sallerorder; ?>" class="list-group-item"><?php echo $text_saller_order; ?></a>
 	<?php } ?> 
          
 

@@ -8,8 +8,6 @@ class ControllerAccountQuotedprice extends Controller {
 		}
 
 		$this->load->language('account/quotedprice');
-        
-// 		$this->load->language('account/wishlist');
 		
 		$this->load->model('account/wishlist');
 		
@@ -93,10 +91,17 @@ class ControllerAccountQuotedprice extends Controller {
 		$data['column_price'] = $this->language->get('column_price');
 		$data['column_action'] = $this->language->get('column_action');
 		
+		$data['entry_quantity'] = $this->language->get('entry_quantity');
+		$data['entry_price'] = $this->language->get('entry_price');
+			
+		
 		$data['button_continue'] = $this->language->get('button_continue');
 		$data['button_cart'] = $this->language->get('button_cart');
 		$data['button_remove'] = $this->language->get('button_remove');
 		$data['button_filter'] = $this->language->get('button_filter');
+		
+		$data['button_quotedprice'] = $this->language->get('button_quotedprice');
+		
 		
 		$data['products'] = array();
 		
@@ -150,8 +155,7 @@ class ControllerAccountQuotedprice extends Controller {
 	            'stock'      => $stock,
 	            'price'      => $price,
 	            'special'    => $special,
-	            'href'       => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
-	            'remove'     => $this->url->link('account/wishlist', 'remove=' . $product_info['product_id'])
+	            'href'       => $this->url->link('account/quotedprice/quotedprice', 'product_id=' . $product_info['product_id']),
 	        );
 		}
 		 
@@ -257,7 +261,11 @@ class ControllerAccountQuotedprice extends Controller {
 			$data['text_history'] = $this->language->get('text_history');
 			$data['text_comment'] = $this->language->get('text_comment');
 			$data['text_no_results'] = $this->language->get('text_no_results');
-
+            
+			$data['entry_quantity'] = $this->language->get('entry_quantity');
+			$data['entry_price'] = $this->language->get('entry_price');
+			
+			
 			$data['column_name'] = $this->language->get('column_name');
 			$data['column_model'] = $this->language->get('column_model');
 			$data['column_quantity'] = $this->language->get('column_quantity');
@@ -505,65 +513,245 @@ class ControllerAccountQuotedprice extends Controller {
 			$this->response->setOutput($this->load->view('error/not_found', $data));
 		}
 	}
+    
+	//
+	public function quotedprice() {
+	    $this->load->language('account/quotedprice');
+	    
+    	if (isset($this->request->get['product_id'])) {
+        	$product_id = (int)$this->request->get['product_id'];
+        } else {
+        	$product_id = 0;
+        }
+        
+	    if (!$this->customer->isLogged()) {
+	        $this->session->data['redirect'] = $this->url->link('account/quotedprice/quotedprice', 'product_id=' . $product_id, true);
+	
+	        $this->response->redirect($this->url->link('account/login', '', true));
+	    }
+	
+	    $this->document->setTitle($this->language->get('text_order'));
 
-	public function reorder() {
-		$this->load->language('account/order');
+        $url = '';
+        if (isset($this->request->get['product_id'])) {
+            $data['action'] = $this->url->link('account/quotedprice/edit','product_id=' . $this->request->get['product_id'] . $url, true);
+        }
+        if (isset($this->request->get['page'])) {
+            $url .= '&page=' . $this->request->get['page'];
+        }
 
-		if (isset($this->request->get['order_id'])) {
-			$order_id = $this->request->get['order_id'];
-		} else {
-			$order_id = 0;
-		}
+        $data['breadcrumbs'] = array();
 
-		$this->load->model('account/order');
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home')
+        );
 
-		$order_info = $this->model_account_order->getOrder($order_id);
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_account'),
+            'href' => $this->url->link('account/account', '', true)
+        );
 
-		if ($order_info) {
-			if (isset($this->request->get['order_product_id'])) {
-				$order_product_id = $this->request->get['order_product_id'];
-			} else {
-				$order_product_id = 0;
-			}
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('account/quotedprice', $url, true)
+        );
 
-			$order_product_info = $this->model_account_order->getOrderProduct($order_id, $order_product_id);
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_productinfo'),
+            'href' => $this->url->link('account/quotedprice/quotedprice', 'product_id=' . $this->request->get['product_id'] . $url, true)
+        );
 
-			if ($order_product_info) {
-				$this->load->model('catalog/product');
+        $data['heading_title'] = $this->language->get('text_productinfo');
+       
 
-				$product_info = $this->model_catalog_product->getProduct($order_product_info['product_id']);
+        $data['button_save'] = $this->language->get('button_save');
+        $data['text_order_detail'] = $this->language->get('text_order_detail');
+        $data['text_invoice_no'] = $this->language->get('text_invoice_no');
+        $data['text_order_id'] = $this->language->get('text_order_id');
+        $data['text_date_added'] = $this->language->get('text_date_added');
+        $data['text_shipping_method'] = $this->language->get('text_shipping_method');
+        $data['text_shipping_address'] = $this->language->get('text_shipping_address');
+        $data['text_payment_method'] = $this->language->get('text_payment_method');
+        $data['text_payment_address'] = $this->language->get('text_payment_address');
+        $data['text_history'] = $this->language->get('text_history');
+        //
+        $data['text_quotedpricehistory'] = $this->language->get('text_quotedpricehistory');
+        
+        $data['entry_quantity'] = $this->language->get('entry_quantity');
+        $data['entry_price'] = $this->language->get('entry_price');
+        	
+        $data['text_comment'] = $this->language->get('text_comment');
+        $data['text_no_results'] = $this->language->get('text_no_results');
+        
+        $data['column_name'] = $this->language->get('column_name');
+        $data['column_model'] = $this->language->get('column_model');
+        $data['column_quantity'] = $this->language->get('column_quantity');
+        $data['column_price'] = $this->language->get('column_price');
+        $data['column_total'] = $this->language->get('column_total');
+        $data['column_action'] = $this->language->get('column_action');
+        $data['column_date_added'] = $this->language->get('column_date_added');
+        $data['column_status'] = $this->language->get('column_status');
+        $data['column_comment'] = $this->language->get('column_comment');
 
-				if ($product_info) {
-					$option_data = array();
+        $data['button_reorder'] = $this->language->get('button_reorder');
+        $data['button_return'] = $this->language->get('button_return');
+        $data['button_continue'] = $this->language->get('button_continue');
 
-					$order_options = $this->model_account_order->getOrderOptions($order_product_info['order_id'], $order_product_id);
+        if (isset($this->session->data['error'])) {
+            $data['error_warning'] = $this->session->data['error'];
+            unset($this->session->data['error']);
+        } else {
+            $data['error_warning'] = '';
+        }
 
-					foreach ($order_options as $order_option) {
-						if ($order_option['type'] == 'select' || $order_option['type'] == 'radio' || $order_option['type'] == 'image') {
-							$option_data[$order_option['product_option_id']] = $order_option['product_option_value_id'];
-						} elseif ($order_option['type'] == 'checkbox') {
-							$option_data[$order_option['product_option_id']][] = $order_option['product_option_value_id'];
-						} elseif ($order_option['type'] == 'text' || $order_option['type'] == 'textarea' || $order_option['type'] == 'date' || $order_option['type'] == 'datetime' || $order_option['type'] == 'time') {
-							$option_data[$order_option['product_option_id']] = $order_option['value'];
-						} elseif ($order_option['type'] == 'file') {
-							$option_data[$order_option['product_option_id']] = $this->encryption->encrypt($order_option['value']);
-						}
-					}
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
 
-					$this->cart->add($order_product_info['product_id'], $order_product_info['quantity'], $option_data);
+            unset($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
+ 
 
-					$this->session->data['success'] = sprintf($this->language->get('text_success'), $this->url->link('product/product', 'product_id=' . $product_info['product_id']), $product_info['name'], $this->url->link('checkout/cart'));
 
-					unset($this->session->data['shipping_method']);
-					unset($this->session->data['shipping_methods']);
-					unset($this->session->data['payment_method']);
-					unset($this->session->data['payment_methods']);
-				} else {
-					$this->session->data['error'] = sprintf($this->language->get('error_reorder'), $order_product_info['name']);
-				}
-			}
-		}
+       
+        $this->load->model('tool/upload');
 
-		$this->response->redirect($this->url->link('account/order/info', 'order_id=' . $order_id));
+        // Products
+        $this->load->model('catalog/product');
+        $quoteprice_option_id = 11;
+        $this->model_catalog_product->addProductQuotepriceOption($product_id,$quoteprice_option_id);
+        $product_info = $this->model_catalog_product->getProduct($product_id);
+        
+        $data['product'] = array(
+            'product_id'     => $product_id,
+            'name'     => $product_info['name'],
+            'model'    => $product_info['model'],
+            'quantity' => $product_info['quantity'],
+            'price'    => $product_info['price'],
+            'return'   => ""
+        );
+        // Options
+        $this->load->model('catalog/option');
+       
+        if (isset($this->request->get['product_id'])) {
+            $product_option = $this->model_catalog_product->getProductOptionsByOptionId($this->request->get['product_id'],$quoteprice_option_id);
+        } else {
+            $product_option = array();
+        }
+        $data['product_option'] = array();
+        if(isset($product_option['product_option_id'])){
+            $product_option_value_data = array();
+        
+            if (isset($product_option['product_option_value'])) {
+                foreach ($product_option['product_option_value'] as $product_option_value) {
+                    $product_option_value_data[] = array(
+                        'product_option_value_id' => $product_option_value['product_option_value_id'],
+                        'option_value_id'         => $product_option_value['option_value_id'],
+                        'quantity'                => $product_option_value['quantity'],
+                        'subtract'                => $product_option_value['subtract'],
+                        'price'                   => $product_option_value['price']
+//                         'price_prefix'            => $product_option_value['price_prefix'],
+//                         'points'                  => $product_option_value['points'],
+//                         'points_prefix'           => $product_option_value['points_prefix'],
+//                         'weight'                  => $product_option_value['weight'],
+//                         'weight_prefix'           => $product_option_value['weight_prefix']
+                    );
+                }
+            }
+//             var_dump($product_option);
+//             var_dump($product_option[0]['product_option_id']);
+//             die;
+            
+            $data['product_option'] = array(
+                'product_option_id'    => $product_option['product_option_id'],
+                'product_option_value' => $product_option_value_data,
+                'option_id'            => $product_option['option_id'],
+                'name'                 => $product_option['name'],
+                'type'                 => $product_option['type'],
+                'value'                => isset($product_option['value']) ? $product_option['value'] : '',
+                'required'             => $product_option['required']
+            );
+        }
+        
+        $data['option_values'] = array();
+        $data['option_values'][$quoteprice_option_id] = $this->model_catalog_option->getOptionValues($quoteprice_option_id);
+//         if(isset($product_option) && isset($product_option['type'] ) && $product_option['type'] == 'select'){
+//             if (!isset($data['option_values'][$product_option['option_id']])) {
+//                 $data['option_values'][$product_option['option_id']] = $this->model_catalog_option->getOptionValues($product_option['option_id']);
+//             }
+//         }
+        
+        $data['histories'][] = array(
+            'name'     => $product_info['name'],
+            'model'    => $product_info['model'],
+            'quantity' => $product_info['quantity'],
+            'price'    => $product_info['price'],
+            'return'   => ""
+        );
+        $data['continue'] = $this->url->link('account/quotedprice', '', true);
+
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['column_right'] = $this->load->controller('common/column_right');
+        $data['content_top'] = $this->load->controller('common/content_top');
+        $data['content_bottom'] = $this->load->controller('common/content_bottom');
+        $data['footer'] = $this->load->controller('common/footer');
+        $data['header'] = $this->load->controller('common/header');
+
+        $this->response->setOutput($this->load->view('account/quotedprice_info', $data));
+	}
+	
+	public function edit() {
+	    $this->load->language('catalog/product');
+	    
+	    $this->document->setTitle($this->language->get('heading_title'));
+	    
+	    $this->load->model('catalog/product');
+	    
+	    if (($this->request->server['REQUEST_METHOD'] == 'POST') ) {
+// 	        var_dump( $this->request->post);
+// 	        die;
+	        $this->model_catalog_product->editProductQuotepriceOption($this->request->get['product_id'], $this->request->post);
+	    
+	        $this->session->data['success'] = $this->language->get('text_success');
+	    
+	        $url = '';
+	    
+	        if (isset($this->request->get['filter_name'])) {
+	            $url .= '&filter_name=' . urlencode(html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8'));
+	        }
+	    
+	        if (isset($this->request->get['filter_model'])) {
+	            $url .= '&filter_model=' . urlencode(html_entity_decode($this->request->get['filter_model'], ENT_QUOTES, 'UTF-8'));
+	        }
+	    
+	        if (isset($this->request->get['filter_price'])) {
+	            $url .= '&filter_price=' . $this->request->get['filter_price'];
+	        }
+	    
+	        if (isset($this->request->get['filter_quantity'])) {
+	            $url .= '&filter_quantity=' . $this->request->get['filter_quantity'];
+	        }
+	    
+	        if (isset($this->request->get['filter_status'])) {
+	            $url .= '&filter_status=' . $this->request->get['filter_status'];
+	        }
+	    
+	        if (isset($this->request->get['sort'])) {
+	            $url .= '&sort=' . $this->request->get['sort'];
+	        }
+	    
+	        if (isset($this->request->get['order'])) {
+	            $url .= '&order=' . $this->request->get['order'];
+	        }
+	    
+	        if (isset($this->request->get['page'])) {
+	            $url .= '&page=' . $this->request->get['page'];
+	        }
+	    
+	        $this->response->redirect($this->url->link('account/quotedprice/index', $url, true));
+	    }
+	     
 	}
 }
